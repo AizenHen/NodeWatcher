@@ -1,0 +1,34 @@
+name: NodeWatcher CI
+on: [push, pull_request]
+jobs:
+  application:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci --ignore-scripts
+      - run: node --check server.js
+      - run: node --check public/app.js
+      - run: node --check public/remote-access.js
+      - run: node --check public/rack-placement.js
+      - run: npm test
+  collectors:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m py_compile scripts/collect_linux.py
+      - run: python scripts/collect_linux.py --server-id ci-linux --dns-name localhost --output reports/ci-linux.json
+      - name: Parse PowerShell collector
+        shell: pwsh
+        run: |
+          $parseErrors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile("$PWD/scripts/Collect-Windows.ps1", [ref]$null, [ref]$parseErrors) | Out-Null
+          if ($parseErrors.Count) { throw ($parseErrors | Out-String) }

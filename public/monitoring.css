@@ -1,0 +1,2 @@
+.monitor-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:650px){.monitor-fields{grid-template-columns:1fr}}

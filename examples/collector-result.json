@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "results": [{
+    "serverId": "my-linux-01",
+    "checkedAt": "2026-10-25T08:00:00Z",
+    "checks": [
+      {"name": "CPU load", "status": "healthy", "category": "system", "message": "1-minute load 0.45 across 4 logical CPUs."},
+      {"name": "Filesystem /", "status": "warning", "category": "system", "message": "84% used; 16 GiB available."}
+    ]
+  }]
+}

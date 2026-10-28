@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "racks": [{"id": "my-rack-01", "name": "My lab rack", "location": "Home lab", "units": 42, "maxWatts": 3000}],
+  "servers": [{"id": "my-linux-01", "name": "My Linux server", "host": "linux01.example.test", "os": "linux", "role": "Lab server", "model": "Generic 2U server", "rackId": "my-rack-01", "startU": 10, "units": 2, "watts": 350, "ports": [22], "demo": false}]
+}
