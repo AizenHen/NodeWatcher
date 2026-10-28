@@ -74,8 +74,6 @@ Demo devices use documentation-only addresses in `192.0.2.0/24` and fabricated r
 
 ### Connect with SSH or RDP
 
-![Remote connection panel tested against an isolated loopback endpoint](docs/remote-access.png)
-
 Each real Linux device has an **SSH** button, and each real Windows device has an **RDP** button in the inventory and health views.
 
 1. Click the device's SSH/RDP button. NodeWatcher checks ICMP ping and the remote-access TCP port.
