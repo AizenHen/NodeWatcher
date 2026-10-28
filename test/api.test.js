@@ -1,13 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
-import {mkdtemp,rm} from 'node:fs/promises';
+import {mkdir,mkdtemp,rm} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import net from 'node:net';
 import {once} from 'node:events';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 test('API persists inventory, imports atomically, scans only real targets, and exports safe reports',async t=>{
+  await mkdir(path.join(root,'data'),{recursive:true});
   const temp=await mkdtemp(path.join(root,'data','test-'));
   const child=spawn(process.execPath,['server.js'],{cwd:root,env:{...process.env,PORT:'0',INFRACHECK_DB:path.join(temp,'test.db')},stdio:['ignore','pipe','pipe']});
   t.after(async()=>{child.kill();await once(child,'exit').catch(()=>{});await rm(temp,{recursive:true,force:true});});
